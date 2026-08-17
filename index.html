@@ -106,6 +106,22 @@
     border-bottom:1px solid var(--linea)}
   .sol.on{display:block}
   .sol b{color:var(--marca)}
+  /* ---------- evaluación ---------- */
+  .ev-op{display:flex;flex-wrap:wrap;gap:.5rem;margin:.35rem 0 1.3rem}
+  .ev-op input{position:absolute;opacity:0;width:0;height:0}
+  .ev-op label{border:1px solid var(--linea);border-radius:999px;padding:.45rem .95rem;
+    font-size:.88rem;cursor:pointer;color:var(--txt2);transition:.15s}
+  .ev-op label:hover{border-color:var(--txt2)}
+  .ev-op input:checked + label{border-color:var(--marca);background:rgba(255,10,60,.18);
+    color:var(--txt);font-weight:600}
+  .ev-op.nps label{min-width:2.6rem;text-align:center;padding:.45rem .5rem}
+  .likert{width:100%;border-collapse:collapse;font-size:.86rem;margin:.4rem 0 1.3rem}
+  .likert th{font-size:.68rem;font-weight:700;color:var(--txt2);padding:.4rem .2rem;
+    text-align:center;letter-spacing:.03em;text-transform:uppercase;line-height:1.25}
+  .likert td{padding:.55rem .2rem;border-bottom:1px solid var(--linea);text-align:center}
+  .likert td:first-child{text-align:left;color:var(--txt);padding-right:.6rem}
+  .likert input{accent-color:var(--marca);width:17px;height:17px;cursor:pointer}
+  .ev-nota{font-size:.8rem;color:var(--txt2);margin:-.7rem 0 1.3rem}
   .leyenda{display:flex;gap:1.2rem;justify-content:flex-end;font-size:.76rem;color:var(--txt2);
     margin-bottom:.5rem;font-weight:600}
 
@@ -564,10 +580,102 @@ de adivinar.</div>
   <p class="nota" style="margin-top:1rem">Si tu plan no tiene un número, no es un plan.</p>
 
   <div class="pie"><button class="btn sec" data-ir="6">← Atrás</button>
-    <button class="btn" data-ir="8">Ver mi resumen →</button></div>
+    <button class="btn" data-ir="8">Evaluar el taller →</button></div>
 </section>
 
-<!-- ============ 8 · CIERRE ============ -->
+<!-- ============ 8 · EVALUACIÓN ============ -->
+<section data-t="8 · Evaluación">
+  <div class="kick">Último paso <span class="reloj">⏱ 4 min</span></div>
+  <h1>Evaluación del taller</h1>
+  <p class="lead">Diez preguntas. Tu respuesta honesta es la que decide qué se conserva y qué se
+  ajusta para el siguiente grupo. Se guarda igual que todo lo demás y se va en tu resumen.</p>
+
+  <h2>Qué te llevas</h2>
+
+  <label for="ev_1">1 · En una frase: ¿qué tipo de información NUNCA subirías a una IA pública?</label>
+  <textarea id="ev_1" name="ev_1" style="min-height:66px"></textarea>
+
+  <label for="ev_2">2 · Un compañero te dice: «la IA ya me dio el dato, lo mando así». ¿Qué le contestas?</label>
+  <textarea id="ev_2" name="ev_2" style="min-height:66px"></textarea>
+
+  <label for="ev_3">3 · Con tus palabras: ¿cuál es la diferencia entre usar la IA a mano cada vez
+  y automatizar el proceso completo?</label>
+  <textarea id="ev_3" name="ev_3" style="min-height:66px"></textarea>
+
+  <h2>Qué produjiste</h2>
+
+  <label>4 · ¿Te llevas algo hecho hoy que puedas usar en tu trabajo esta semana?</label>
+  <div class="ev-op">
+    <span><input type="radio" id="ev4a" name="ev_4" value="Sí, ya quedó listo"><label for="ev4a">Sí, ya quedó listo</label></span>
+    <span><input type="radio" id="ev4b" name="ev_4" value="Sí, pero necesito terminarlo"><label for="ev4b">Sí, pero necesito terminarlo</label></span>
+    <span><input type="radio" id="ev4c" name="ev_4" value="No alcancé a producir nada"><label for="ev4c">No alcancé a producir nada</label></span>
+  </div>
+
+  <label>5 · De todo lo que hiciste hoy, ¿qué actividad te sirvió más?</label>
+  <div class="ev-op">
+    <span><input type="radio" id="ev5a" name="ev_5" value="Cachar a la IA inventando datos"><label for="ev5a">Cachar a la IA inventando datos</label></span>
+    <span><input type="radio" id="ev5b" name="ev_5" value="El semáforo de datos"><label for="ev5b">El semáforo de datos</label></span>
+    <span><input type="radio" id="ev5c" name="ev_5" value="Comparar las 4 herramientas"><label for="ev5c">Comparar las 4 herramientas</label></span>
+    <span><input type="radio" id="ev5d" name="ev_5" value="Reescribir mi propio prompt"><label for="ev5d">Reescribir mi propio prompt</label></span>
+    <span><input type="radio" id="ev5e" name="ev_5" value="El laboratorio: producir algo de mi trabajo"><label for="ev5e">El laboratorio: producir algo mío</label></span>
+    <span><input type="radio" id="ev5f" name="ev_5" value="Armar mi hoja de ruta 30/60/90"><label for="ev5f">Armar mi hoja de ruta</label></span>
+  </div>
+
+  <h2>Cómo estuvo</h2>
+
+  <label>6 · ¿Qué tan probable es que le recomiendes este taller a otro empresario o colega?</label>
+  <div class="ev-op nps">
+    <span><input type="radio" id="ev6-0" name="ev_6" value="0"><label for="ev6-0">0</label></span>
+    <span><input type="radio" id="ev6-1" name="ev_6" value="1"><label for="ev6-1">1</label></span>
+    <span><input type="radio" id="ev6-2" name="ev_6" value="2"><label for="ev6-2">2</label></span>
+    <span><input type="radio" id="ev6-3" name="ev_6" value="3"><label for="ev6-3">3</label></span>
+    <span><input type="radio" id="ev6-4" name="ev_6" value="4"><label for="ev6-4">4</label></span>
+    <span><input type="radio" id="ev6-5" name="ev_6" value="5"><label for="ev6-5">5</label></span>
+    <span><input type="radio" id="ev6-6" name="ev_6" value="6"><label for="ev6-6">6</label></span>
+    <span><input type="radio" id="ev6-7" name="ev_6" value="7"><label for="ev6-7">7</label></span>
+    <span><input type="radio" id="ev6-8" name="ev_6" value="8"><label for="ev6-8">8</label></span>
+    <span><input type="radio" id="ev6-9" name="ev_6" value="9"><label for="ev6-9">9</label></span>
+    <span><input type="radio" id="ev6-10" name="ev_6" value="10"><label for="ev6-10">10</label></span>
+  </div>
+  <p class="ev-nota">0 = nada probable · 10 = muy probable</p>
+
+  <label>7 · Qué tan satisfecho quedaste con cada cosa</label>
+  <div style="overflow-x:auto">
+  <table class="likert">
+    <thead><tr><th></th><th>Muy<br>insatisfecho</th><th>Insatisfecho</th><th>Neutral</th>
+      <th>Satisfecho</th><th>Muy<br>satisfecho</th></tr></thead>
+    <tbody id="likert"></tbody>
+  </table>
+  </div>
+
+  <label>8 · ¿Cómo sentiste el ritmo de la sesión?</label>
+  <div class="ev-op">
+    <span><input type="radio" id="ev8a" name="ev_8" value="Muy acelerado, me costó seguirlo"><label for="ev8a">Muy acelerado</label></span>
+    <span><input type="radio" id="ev8b" name="ev_8" value="Adecuado"><label for="ev8b">Adecuado</label></span>
+    <span><input type="radio" id="ev8c" name="ev_8" value="Muy lento, sobró tiempo"><label for="ev8c">Muy lento</label></span>
+  </div>
+
+  <h2>Qué sigue</h2>
+
+  <label for="ev_9">9 · Si pudieras cambiarle una cosa al taller, ¿cuál sería?</label>
+  <textarea id="ev_9" name="ev_9" style="min-height:66px"></textarea>
+
+  <label>10 · ¿Qué te interesaría después de este taller? (puedes marcar varias)</label>
+  <div class="ev-op">
+    <span><input type="checkbox" id="ev10a" name="ev_10a" value="Segunda sesión técnica para construir automatizaciones"><label for="ev10a">Segunda sesión técnica</label></span>
+    <span><input type="checkbox" id="ev10b" name="ev_10b" value="Que revisen un proceso de mi empresa (diagnóstico sin costo)"><label for="ev10b">Diagnóstico de un proceso mío</label></span>
+    <span><input type="checkbox" id="ev10c" name="ev_10c" value="Recibir plantillas y tips por correo"><label for="ev10c">Plantillas por correo</label></span>
+    <span><input type="checkbox" id="ev10d" name="ev_10d" value="Nada por ahora"><label for="ev10d">Nada por ahora</label></span>
+  </div>
+
+  <p class="nota">Puedes dejar en blanco lo que no aplique. Tus respuestas se van en el resumen
+  del siguiente paso — descárgalo o mándalo por WhatsApp y con eso queda entregada.</p>
+
+  <div class="pie"><button class="btn sec" data-ir="7">← Atrás</button>
+    <button class="btn" data-ir="9">Ver mi resumen →</button></div>
+</section>
+
+<!-- ============ 9 · CIERRE ============ -->
 <section data-t="Tu resumen">
   <div class="kick">Cierre</div>
   <h1>Todo lo que hiciste hoy</h1>
@@ -586,8 +694,8 @@ de adivinar.</div>
     <h3 style="margin:0 0 .5rem">Cuéntanos cómo estuvo</h3>
     <p>Diez preguntas rápidas. Nos sirven para mejorar el taller para el siguiente grupo,
     y a ti para dejar apuntado qué te interesa que sigamos.</p>
-    <a class="btn" id="encuesta" href="#" target="_blank" rel="noopener"
-       style="margin-top:.4rem">Contestar la encuesta →</a>
+    <p id="ev-aviso"></p>
+    <button class="btn" data-ir="8" style="margin-top:.4rem">Contestar la evaluación →</button>
   </div>
 
   <h2>5 prompts para mañana</h2>
@@ -678,7 +786,7 @@ sin disculparme de más y sin sonar agresivo.</div></div>
     automatizarlo o si con IA manual te alcanza.</p>
   </div>
 
-  <div class="pie"><button class="btn sec" data-ir="7">← Atrás</button>
+  <div class="pie"><button class="btn sec" data-ir="8">← Atrás</button>
     <button class="btn sec" id="borrar">Borrar todo</button></div>
 </section>
 
@@ -690,8 +798,7 @@ sin disculparme de más y sin sonar agresivo.</div></div>
 /* ---------- configuración ---------- */
 // Cambia este número por el WhatsApp de Ámbar Rojo (formato internacional, sin + ni espacios).
 const WHATSAPP = '529612255126';   // Raúl Paredes
-// URL del Google Forms de evaluación. Si la dejas vacía, el botón no se muestra.
-const ENCUESTA = '';
+// La evaluación vive dentro de la app (pestaña 8) y se va en el resumen.
 
 /* ---------- casos del semáforo ---------- */
 const CASOS = [
@@ -755,11 +862,28 @@ CASOS.forEach(([texto, ok, porque], i) => {
   cont.append(fila, sol);
 });
 
+/* ---------- matriz Likert de la evaluación ---------- */
+const ASPECTOS = [
+  ['ev_7a', 'Claridad del instructor y dominio del tema'],
+  ['ev_7b', 'Utilidad de las demos en vivo'],
+  ['ev_7c', 'El cuaderno digital de trabajo'],
+  ['ev_7d', 'Equilibrio entre explicación y práctica'],
+  ['ev_7e', 'Instalaciones y proyección'],
+  ['ev_7f', 'Organización y logística de Coparmex'],
+];
+const ESCALA = ['Muy insatisfecho', 'Insatisfecho', 'Neutral', 'Satisfecho', 'Muy satisfecho'];
+document.getElementById('likert').innerHTML = ASPECTOS.map(([n, texto]) =>
+  '<tr><td>' + texto + '</td>' +
+  ESCALA.map(v => '<td><input type="radio" name="' + n + '" value="' + v +
+    '" aria-label="' + texto + ': ' + v + '"></td>').join('') +
+  '</tr>').join('');
+
 /* ---------- restaurar valores guardados ---------- */
 document.querySelectorAll('[name]').forEach(el => {
   const v = estado[el.name];
   if (v === undefined) return;
   if (el.type === 'radio') el.checked = (el.value === v);
+  else if (el.type === 'checkbox') el.checked = (v === true);
   else el.value = v;
 });
 
@@ -773,8 +897,10 @@ document.addEventListener('input', e => {
 });
 document.addEventListener('change', e => {
   const el = e.target;
-  if (el.type !== 'radio' || !el.name) return;
-  estado[el.name] = el.value;
+  if (!el.name) return;
+  if (el.type === 'radio') estado[el.name] = el.value;
+  else if (el.type === 'checkbox') estado[el.name] = el.checked;
+  else return;
   guardar();
 });
 
@@ -806,11 +932,12 @@ document.addEventListener('click', e => {
 /* ---------- progreso ---------- */
 // Campos que cuentan como "el ejercicio quedó hecho".
 const CLAVE = ['nombre','dolor','a1_preg','a1_falso','sem_1','sem_5','a3_cual',
-               'a4_antes','a4_despues','a5_result','au_tarea','hr_tarea','hr_30','hr_ahorro'];
+               'a4_antes','a4_despues','a5_result','au_tarea','hr_tarea','hr_30','hr_ahorro',
+               'ev_1','ev_6'];
 // Qué campos pertenecen a qué sección, para la palomita del tab.
 const POR_SEC = [['nombre','dolor'], ['a1_preg','a1_falso'], ['sem_1','sem_10'],
                  ['a3_cual'], ['a4_antes','a4_despues'], ['a5_result'],
-                 ['au_tarea'], ['hr_tarea','hr_30'], []];
+                 ['au_tarea'], ['hr_tarea','hr_30'], ['ev_1','ev_6'], []];
 
 function lleno(k){ return typeof estado[k] === 'string' && estado[k].trim() !== ''; }
 
@@ -966,6 +1093,27 @@ function armarResumen(){
     'Minutos que espera ahorrar al mes: ' + v('hr_ahorro')
   ]);
 
+  const marcadas = ['ev_10a','ev_10b','ev_10c','ev_10d']
+    .filter(k => estado[k] === true)
+    .map(k => '  · ' + document.querySelector('[name="' + k + '"]').value);
+
+  bloque('8 · Evaluación del taller', [
+    'Nunca subiría: ' + v('ev_1'),
+    'Le contestaría: ' + v('ev_2'),
+    'IA a mano vs. automatizar: ' + v('ev_3'),
+    '',
+    '¿Se lleva algo hecho?: ' + v('ev_4'),
+    'Actividad que más le sirvió: ' + v('ev_5'),
+    'Recomendaría el taller (0-10): ' + v('ev_6'),
+    'Ritmo: ' + v('ev_8'),
+    ''
+  ].concat(ASPECTOS.map(([n, texto]) => '  ' + texto + ': ' + v(n)))
+   .concat([
+    '',
+    'Le cambiaría: ' + v('ev_9'),
+    'Le interesa:'
+  ]).concat(marcadas.length ? marcadas : ['  —']));
+
   L.push('', '─'.repeat(48));
   L.push('¿Algo de esto debería pasar solo? La plática de');
   L.push('diagnóstico con Ámbar Rojo no se cobra.');
@@ -976,10 +1124,13 @@ function armarResumen(){
 function pintarResumen(){
   const texto = armarResumen();
   document.getElementById('resumen').textContent = texto;
+  pintarAviso();
   const msg = 'Hola, soy ' + v('nombre', 'un participante') +
     '. Acabo de terminar el taller de IA de Coparmex y esta es mi hoja de ruta:\n\n' + texto;
+  // ponytail: 3500 caracteres. El bloque de evaluación va al final del resumen y con el
+  // corte viejo de 1800 se perdía. Si algún celular no abre el link, baja este número.
   document.getElementById('enviar').href =
-    'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg.slice(0, 1800));
+    'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg.slice(0, 3500));
 }
 
 document.getElementById('descargar').onclick = () => {
@@ -1004,14 +1155,14 @@ document.getElementById('borrar').onclick = () => {
   location.reload();
 };
 
-/* ---------- botón de la encuesta ---------- */
-(function(){
-  const a = document.getElementById('encuesta');
-  if (!a) return;
-  if (ENCUESTA) { a.href = ENCUESTA; return; }
-  const caja = a.closest('.card');            // sin URL, no se enseña un botón muerto
-  (caja || a).style.display = 'none';
-})();
+/* ---------- aviso de la evaluación ---------- */
+// Si ya la contestó, la tarjeta del cierre cambia de tono en vez de insistir.
+function pintarAviso(){
+  const hecha = ['ev_1','ev_6'].every(lleno);
+  document.getElementById('ev-aviso').textContent = hecha
+    ? 'Ya la contestaste. Va incluida aquí abajo en tu resumen.'
+    : 'Está en la pestaña 8, aquí mismo en tu cuaderno. Tus respuestas se van en el resumen.';
+}
 
 /* ---------- arranque ---------- */
 pintarEstacion();
@@ -1033,6 +1184,12 @@ ir(Number.isInteger(estado._sec) ? estado._sec : 0);
     estado = {au_min:'', au_veces:''};
     calcularHoras();
     console.assert(estado._horas === '', 'campos vacíos no calculan');
+    estado = {ev_6:'9', ev_7a:'Muy satisfecho', ev_10b:true};
+    const ev = armarResumen();
+    console.assert(ev.includes('Recomendaría el taller (0-10): 9'), 'el NPS va en el resumen');
+    console.assert(ev.includes('Claridad del instructor y dominio del tema: Muy satisfecho'),
+                   'la matriz likert va en el resumen');
+    console.assert(ev.includes('diagnóstico sin costo'), 'lo marcado en la 10 va en el resumen');
   } finally {
     estado = backup;
     calcularHoras();
