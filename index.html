@@ -419,6 +419,11 @@ procedemos.</div>
     <p>El resumen de un documento largo con su correo, o tu tabla de ventas/gastos analizada
     sin fórmulas. Escoge una de las dos rutas.</p>
   </div>
+  <div class="est" data-est="D">
+    <h3>D · Diseño, marca y redes</h3>
+    <p>Un brief de diseño de verdad y 3 direcciones de concepto, sacados de lo poco que te
+    dijo el cliente. Más las preguntas que debiste hacerle antes de empezar.</p>
+  </div>
 
   <div class="detalle" id="det-A">
     <h2>Estación A · tu prompt base</h2>
@@ -493,6 +498,42 @@ de adivinar.</div>
     <div class="aviso"><b>Verifica un número a mano.</b> Escoge un total de la tabla que te dio
     y compruébalo en tu Excel. La IA sí se equivoca sumando — por eso le pediste de dónde salió
     cada cifra.</div>
+  </div>
+
+  <div class="detalle" id="det-D">
+    <h2>Estación D · del brief vago al brief usable</h2>
+    <p>Usa un cliente <b>real</b> que tengas pendiente. Si no traes uno, usa el último que te
+    dio lata.</p>
+    <div class="aviso"><b>Repasa el semáforo.</b> El nombre del cliente es 🟡: cámbialo por
+    "Cliente A" o por su giro. Lo que le dijiste tú y lo que te dijo él, sin nombre, es 🟢.</div>
+    <div class="prompt" data-copy>Eres director de arte con 10 años en identidad de marca.
+
+Mi cliente me pidió esto, textual:
+"[pega aquí lo que te dijo, tal cual, con todo y lo vago]"
+
+Es [giro del negocio] en [ciudad]. Su público es [quién le compra].
+El entregable es [logo / post / flyer / identidad completa].
+
+1. Tradúcelo a un brief concreto: objetivo, público, tono,
+   qué debe transmitir y qué NO debe parecer.
+2. Dame 3 direcciones de concepto distintas entre sí. De cada una:
+   nombre, la idea en una frase, paleta con códigos hex, tipo de
+   tipografía, y por qué le funciona a ESTE cliente.
+3. Dime cuál recomiendas y por qué, en 2 renglones.
+
+Si algo no te lo dije, pregúntamelo en vez de inventarlo.</div>
+
+    <h2 style="margin-top:1.6rem">El matador de revisiones</h2>
+    <p>Córrelo en el mismo chat, justo después. Es el que más tiempo te va a ahorrar.</p>
+    <div class="prompt" data-copy>Antes de que empiece a diseñar: dame las 8 preguntas que
+debí haberle hecho a este cliente y no le hice.
+
+Ordénalas por cuánto me costarían en revisiones si no
+las pregunto ahora. En cada una dime, en media línea,
+qué me arriesgo si la dejo pasar.</div>
+    <div class="aviso"><b>Lo que te llevas el lunes:</b> el brief y las 3 direcciones para
+    presentárselas al cliente, y la lista de preguntas para mandársela <b>hoy mismo</b> por
+    WhatsApp. Esa lista es la que te ahorra las tres rondas de cambios.</div>
   </div>
 
   <label for="a5_result">Qué produjiste (pégalo aquí para que salga en tu resumen)</label>
@@ -1011,7 +1052,7 @@ document.querySelectorAll('.est').forEach(el => {
 function pintarEstacion(){
   document.querySelectorAll('.est').forEach(el =>
     el.classList.toggle('sel', el.dataset.est === estado.a5_est));
-  ['A','B','C'].forEach(k =>
+  ['A','B','C','D'].forEach(k =>
     document.getElementById('det-' + k).classList.toggle('on', k === estado.a5_est));
 }
 
@@ -1070,7 +1111,7 @@ function armarResumen(){
   ]);
 
   const nomEst = {A:'Ventas y atención a cliente', B:'Marketing y contenido',
-                  C:'Administración y finanzas'};
+                  C:'Administración y finanzas', D:'Diseño, marca y redes'};
   bloque('5 · Laboratorio', [
     'Estación: ' + (nomEst[estado.a5_est] || '—'), '',
     v('a5_result'), '',
