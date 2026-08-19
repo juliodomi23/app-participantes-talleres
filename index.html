@@ -244,6 +244,11 @@
   <p class="nota">Ejemplos: "¿qué días abre y cuál es el teléfono de [nombre exacto de tu negocio]?"
   · "¿quién es el dueño de [negocio pequeño que conozcas]?" · "dame 3 reseñas recientes de Google
   de [tu negocio]"</p>
+  <div class="aviso"><b>NO le preguntes sobre ti.</b> Nada de "¿qué voy a hacer el sábado?",
+  "¿cuáles son mis actividades?" o "¿en qué trabajo?". A eso siempre contesta <i>"no tengo
+  esa información"</i> — y eso <b>no es una mentira, es honestidad</b>. Para el ejercicio
+  necesitas que <b>invente</b>, y solo inventa cuando le preguntas por algo que existe
+  allá afuera pero es poco conocido: un negocio chico, una calle, un trámite local.</div>
 
   <label for="a1_preg">Qué le pregunté</label>
   <textarea id="a1_preg" name="a1_preg" style="min-height:66px"></textarea>
@@ -383,13 +388,19 @@ procedemos.</div>
   <h2>Ahora el tuyo</h2>
   <p>Usa una tarea <strong>real</strong> que tengas pendiente esta semana. No un ejemplo.</p>
 
+  <div class="aviso"><b>Ojo con dos cosas que siempre se confunden:</b><br>
+  · En el <b>paso 1</b> escribe tu prompt <b>flojo</b>, como lo escribirías con prisa. Si ya
+  te sale bien a la primera, no vas a ver la diferencia y el ejercicio se pierde.<br>
+  · En el <b>paso 3</b> va <b>el prompt reescrito</b>, <u>no</u> lo que te contestó la IA.
+  Lo que se guarda como plantilla es tu instrucción, no el resultado.</div>
+
   <label for="a4_antes">Paso 1 · Tu prompt como lo escribirías normal <span style="color:var(--txt2);font-weight:400;text-transform:none;letter-spacing:0">(3 min)</span></label>
   <textarea id="a4_antes" name="a4_antes"></textarea>
 
   <label for="a4_falto">Paso 2 · ¿Qué le faltó al resultado? <span style="color:var(--txt2);font-weight:400;text-transform:none;letter-spacing:0">(2 min)</span></label>
   <textarea id="a4_falto" name="a4_falto" style="min-height:66px"></textarea>
 
-  <label for="a4_despues">Paso 3 · Reescríbelo con Rol + Tarea + Contexto + Formato <span style="color:var(--txt2);font-weight:400;text-transform:none;letter-spacing:0">(5 min)</span></label>
+  <label for="a4_despues">Paso 3 · Pega aquí el PROMPT reescrito (no la respuesta) — Rol + Tarea + Contexto + Formato <span style="color:var(--txt2);font-weight:400;text-transform:none;letter-spacing:0">(5 min)</span></label>
   <textarea id="a4_despues" name="a4_despues" style="min-height:190px"></textarea>
 
   <p class="nota">Si el segundo resultado te sirvió, este prompt es tuyo para siempre.
@@ -405,6 +416,9 @@ procedemos.</div>
   <h1>Produce algo<br>que te lleves</h1>
   <p class="lead">Escoge <strong>una sola</strong> estación — la que más te duela en tu día a día.
   Al final tienes que tener algo que puedas usar el lunes, no un ejercicio.</p>
+  <div class="aviso" id="avisoEst"><b>👉 Dale clic a una de las cuatro tarjetas de abajo.</b>
+  Los prompts listos para copiar <b>aparecen hasta que le das clic</b> — y así también queda
+  registrada en tu resumen final.</div>
 
   <div class="est" data-est="A">
     <h3>A · Ventas y atención a cliente</h3>
@@ -846,7 +860,7 @@ const WHATSAPP = '529612255126';   // Raúl Paredes
 /* ---------- casos del semáforo ---------- */
 const CASOS = [
   ['Pegar el texto de un contrato firmado con un cliente para que te lo resuma', 'a',
-   'Depende de si tiene cláusula de confidencialidad. Tacha nombres y montos identificables primero.'],
+   'Depende de si tiene cláusula de confidencialidad. Tacha nombres y montos identificables primero. Si lo marcaste 🔴 también vas bien: es la postura prudente y en un despacho sería la correcta.', 'r'],
   ['Pedirle ideas para el post de aniversario de tu empresa', 'v',
    'Información pública de tu propia empresa. Sin problema.'],
   ['Subir una foto de la INE de un cliente para que extraiga los datos', 'r',
@@ -858,13 +872,13 @@ const CASOS = [
   ['Pedirle que te ayude a recordar la contraseña del sistema pegándole el formato', 'r',
    'Contraseñas y accesos, jamás. Ni completos ni parciales.'],
   ['Subir tu propio currículum para que lo mejore', 'v',
-   'Tus datos son tuyos, tú decides. Los de terceros no.'],
+   'Tus datos son tuyos, tú decides. Los de terceros no. Si lo marcaste 🟡 tienes tu razón: tu CV trae tu teléfono y tu dirección, y borrarlos antes nunca sobra.', 'a'],
   ['Pegar la lista de tus 200 clientes con teléfonos para que la ordene', 'r',
    'Datos personales de terceros. No es tuya la decisión de compartirlos.'],
   ['Subir la nómina del mes para que calcule el costo por área', 'r',
    'Sueldos con nombre son de lo más sensible que hay en una empresa.'],
   ['Describirle un problema con un compañero, sin nombres, para pedir consejo', 'v',
-   'Anonimizado y es tu propia experiencia.']
+   'Anonimizado y es tu propia experiencia. Si lo marcaste 🟡 vas bien: aunque no lleve nombre, sigue siendo la historia de otra persona — si el detalle lo hace identificable, quítalo.', 'a']
 ];
 
 const EMOJI = {r:'🔴', a:'🟡', v:'🟢'};
@@ -1090,9 +1104,13 @@ function armarResumen(){
 
   const sem = CASOS.map((c, i) => {
     const r = estado['sem_' + (i+1)];
-    return '  ' + (i+1) + '. ' + (r ? EMOJI[r] : '·') + (r === c[1] ? '' : r ? '  (era ' + EMOJI[c[1]] + ')' : '');
+    const ok = r === c[1] || (c[3] && r === c[3]);
+    return '  ' + (i+1) + '. ' + (r ? EMOJI[r] : '·') + (ok ? '' : r ? '  (era ' + EMOJI[c[1]] + ')' : '');
   });
-  const bien = CASOS.filter((c, i) => estado['sem_' + (i+1)] === c[1]).length;
+  const bien = CASOS.filter((c, i) => {
+    const r = estado['sem_' + (i+1)];
+    return r === c[1] || (c[3] && r === c[3]);
+  }).length;
   bloque('2 · Semáforo de datos', [bien + ' de 10 correctos'].concat(sem));
 
   bloque('3 · Reto de las 4 herramientas', [
