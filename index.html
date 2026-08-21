@@ -985,6 +985,14 @@ Formato:
     <span><input type="checkbox" id="ev10d" name="ev_10d" value="Nada por ahora"><label for="ev10d">Nada por ahora</label></span>
   </div>
 
+  <div class="fila" style="margin-top:1rem">
+    <div class="campo"><label for="diag_dia">Si marcaste el diagnóstico: ¿qué día te acomoda?</label>
+      <input type="text" id="diag_dia" name="diag_dia" placeholder="Miércoles o jueves de la próxima semana"></div>
+    <div class="campo"><label for="diag_horario">¿En qué horario?</label>
+      <input type="text" id="diag_horario" name="diag_horario" placeholder="Después de las 5pm"></div>
+  </div>
+  <p class="nota">Ponlo aquí y te contactamos directo para agendarlo — no hace falta que lo pidas aparte.</p>
+
   <p class="nota">Puedes dejar en blanco lo que no aplique. Tus respuestas se van en el resumen
   del siguiente paso — descárgalo o mándalo por WhatsApp y con eso queda entregada.</p>
 
@@ -1126,7 +1134,8 @@ procedimientos aplicable.</div></div>
     <p>Hacemos bots de WhatsApp, sitios web y automatizaciones para empresas y despachos en Chiapas.
     Si en tu hoja de ruta apuntaste algo que se ve como "esto debería pasar solo", escríbenos y lo vemos.</p>
     <p style="margin:0"><strong>La plática de diagnóstico no se cobra</strong> — te decimos si conviene
-    automatizarlo o si con IA manual te alcanza.</p>
+    automatizarlo o si con IA manual te alcanza. Si ya pusiste tu día y horario en la evaluación
+    (pestaña 8), te contactamos directo para agendarlo.</p>
   </div>
 
   <div class="pie"><button class="btn sec" data-ir="8">← Atrás</button>
@@ -1469,7 +1478,12 @@ function armarResumen(){
     '',
     'Le cambiaría: ' + v('ev_9'),
     'Le interesa:'
-  ]).concat(marcadas.length ? marcadas : ['  —']));
+  ]).concat(marcadas.length ? marcadas : ['  —'])
+   .concat(estado.diag_dia || estado.diag_horario ? [
+    '',
+    'Día para el diagnóstico: ' + v('diag_dia'),
+    'Horario para el diagnóstico: ' + v('diag_horario')
+  ] : []));
 
   L.push('', '─'.repeat(48));
   L.push('¿Algo de esto debería pasar solo? La plática de');
@@ -1482,12 +1496,22 @@ function pintarResumen(){
   const texto = armarResumen();
   document.getElementById('resumen').textContent = texto;
   pintarAviso();
-  const msg = 'Hola, soy ' + v('nombre', 'un participante') +
-    '. Acabo de terminar el taller de IA del despacho y esta es mi hoja de ruta:\n\n' + texto;
-  // ponytail: 3500 caracteres. El bloque de evaluación va al final del resumen y con el
-  // corte viejo de 1800 se perdía. Si algún celular no abre el link, baja este número.
+
+  // ponytail: el mensaje de WhatsApp va corto A PROPÓSITO. Mandar el resumen completo
+  // (con las 8 actividades) se pasaba de la longitud que soportan los links wa.me en
+  // varios celulares y se cortaba a media palabra. Lo completo va en el .txt descargado;
+  // aquí solo lo que Ámbar Rojo necesita para dar seguimiento.
+  const diag = (estado.diag_dia || estado.diag_horario)
+    ? '\nDiagnóstico — día: ' + v('diag_dia') + ' · horario: ' + v('diag_horario')
+    : '';
+  const msg = 'Hola, soy ' + v('nombre', 'un participante') + ', de ' + v('empresa', 'Legítimo') +
+    '. Terminé el taller de IA.\n\n' +
+    'Mi tarea a mejorar: ' + v('au_tarea') + '\n' +
+    'A 30 días: ' + v('hr_30') +
+    diag +
+    '\n\nAdjunto/descargo el resumen completo aparte.';
   document.getElementById('enviar').href =
-    'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg.slice(0, 3500));
+    'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
 }
 
 document.getElementById('descargar').onclick = () => {
