@@ -606,24 +606,32 @@ qué me arriesgo si la dejo pasar.</div>
 <!-- ============ 7 · A6 HOJA DE RUTA ============ -->
 <section data-t="7 · Hoja de ruta">
   <div class="kick">Actividad 6 · con esto te vas <span class="reloj">⏱ 12 min</span></div>
-  <h1>Tu hoja de ruta</h1>
-  <p class="lead"><strong>UNA</strong> tarea. No cinco. La que más horas te quita y menos criterio
-  necesita.</p>
+  <h1>Lo que te quita tiempo, todos los días</h1>
+  <p class="lead">No es un plan a futuro — es una lista honesta. Piensa en tu día típico y anota
+  tres tareas que sientes que te roban tiempo.</p>
 
-  <label for="hr_tarea">La tarea que voy a mejorar con IA</label>
+  <div class="fila">
+    <div class="campo"><label for="hr_t1">Tarea 1</label>
+      <input type="text" id="hr_t1" name="hr_t1" placeholder="Contestar las mismas preguntas de precio por WhatsApp"></div>
+    <div class="campo"><label for="hr_m1">Minutos al día</label>
+      <input type="text" id="hr_m1" name="hr_m1" placeholder="40"></div>
+  </div>
+  <div class="fila">
+    <div class="campo"><label for="hr_t2">Tarea 2</label>
+      <input type="text" id="hr_t2" name="hr_t2"></div>
+    <div class="campo"><label for="hr_m2">Minutos al día</label>
+      <input type="text" id="hr_m2" name="hr_m2"></div>
+  </div>
+  <div class="fila">
+    <div class="campo"><label for="hr_t3">Tarea 3</label>
+      <input type="text" id="hr_t3" name="hr_t3"></div>
+    <div class="campo"><label for="hr_m3">Minutos al día</label>
+      <input type="text" id="hr_m3" name="hr_m3"></div>
+  </div>
+
+  <h2>La que más te duele</h2>
+  <label for="hr_tarea">De esas tres, ¿cuál vas a probar con IA esta semana?</label>
   <input type="text" id="hr_tarea" name="hr_tarea">
-
-  <label for="hr_30">A 30 días · qué voy a tener listo</label>
-  <textarea id="hr_30" name="hr_30" style="min-height:66px"
-    placeholder="Estar usando ChatGPT todos los días para redactar mis cotizaciones"></textarea>
-
-  <label for="hr_60">A 60 días</label>
-  <textarea id="hr_60" name="hr_60" style="min-height:66px"
-    placeholder="Tener 5 prompts guardados en un documento y un GPT con los datos de mi negocio"></textarea>
-
-  <label for="hr_90">A 90 días</label>
-  <textarea id="hr_90" name="hr_90" style="min-height:66px"
-    placeholder="Enseñárselo a los otros 2 vendedores y ver qué se puede automatizar"></textarea>
 
   <h2>Para que no se quede en el cajón</h2>
   <div class="fila">
@@ -675,7 +683,7 @@ qué me arriesgo si la dejo pasar.</div>
     <span><input type="radio" id="ev5c" name="ev_5" value="Comparar las 4 herramientas"><label for="ev5c">Comparar las 4 herramientas</label></span>
     <span><input type="radio" id="ev5d" name="ev_5" value="Reescribir mi propio prompt"><label for="ev5d">Reescribir mi propio prompt</label></span>
     <span><input type="radio" id="ev5e" name="ev_5" value="El laboratorio: producir algo de mi trabajo"><label for="ev5e">El laboratorio: producir algo mío</label></span>
-    <span><input type="radio" id="ev5f" name="ev_5" value="Armar mi hoja de ruta 30/60/90"><label for="ev5f">Armar mi hoja de ruta</label></span>
+    <span><input type="radio" id="ev5f" name="ev_5" value="Ver qué tarea diaria le puedo pasar a la IA"><label for="ev5f">Ver qué tarea le puedo pasar a la IA</label></span>
   </div>
 
   <h2>Cómo estuvo</h2>
@@ -743,8 +751,10 @@ qué me arriesgo si la dejo pasar.</div>
   <div class="acciones">
     <button class="btn" id="descargar">⬇ Descargar</button>
     <button class="btn sec" id="copiar-todo">Copiar todo</button>
-    <a class="btn wa" id="enviar" href="#" target="_blank" rel="noopener">Enviármelo por WhatsApp</a>
+    <a class="btn wa" id="enviar" href="#" target="_blank" rel="noopener">⬇ Descargar y enviarme por WhatsApp</a>
   </div>
+  <p class="nota">"Enviarme por WhatsApp" primero descarga el archivo y luego abre WhatsApp —
+  ahí lo adjuntas desde Descargas.</p>
 
   <div class="card" style="border-color:var(--marca);background:rgba(245,158,11,.07)">
     <span class="et">Último paso · 4 minutos</span>
@@ -1143,11 +1153,11 @@ function armarResumen(){
   ]);
 
   bloque('7 · Hoja de ruta', [
-    'La tarea: ' + v('hr_tarea'),
+    'Tarea 1: ' + v('hr_t1') + ' (' + v('hr_m1', '?') + ' min/día)',
+    'Tarea 2: ' + v('hr_t2') + ' (' + v('hr_m2', '?') + ' min/día)',
+    'Tarea 3: ' + v('hr_t3') + ' (' + v('hr_m3', '?') + ' min/día)',
     '',
-    '30 días: ' + v('hr_30'),
-    '60 días: ' + v('hr_60'),
-    '90 días: ' + v('hr_90'),
+    'La que va a probar con IA esta semana: ' + v('hr_tarea'),
     '',
     'Cuándo lo hace: ' + v('hr_cuando'),
     'A quién se lo enseña: ' + v('hr_quien'),
@@ -1194,7 +1204,7 @@ function pintarResumen(){
     'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg.slice(0, 3500));
 }
 
-document.getElementById('descargar').onclick = () => {
+function descargarResumen(){
   const nombre = (estado.nombre || 'participante').trim().replace(/[^\w\sáéíóúñ-]/gi, '');
   const blob = new Blob([armarResumen()], {type:'text/plain;charset=utf-8'});
   const a = document.createElement('a');
@@ -1202,6 +1212,14 @@ document.getElementById('descargar').onclick = () => {
   a.download = 'Taller IA - ' + nombre + '.txt';
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+document.getElementById('descargar').onclick = descargarResumen;
+
+// ponytail: primero descarga, luego abre WhatsApp — así el archivo ya está
+// en Descargas listo para adjuntar a mano (wa.me no permite adjuntar solo).
+document.getElementById('enviar').onclick = () => {
+  descargarResumen();
 };
 
 document.getElementById('copiar-todo').onclick = async e => {
