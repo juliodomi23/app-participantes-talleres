@@ -6,12 +6,15 @@ Mismo patrón que `08-productos-internos/invitaciones/`: nginx sirviendo archivo
 
 ---
 
-## Taller activo — 2026-08-31 · Coparmex (PyMEs)
+## Taller activo — 2026-09-20 · BNI
 
-El anterior (Legítimo, despacho de abogados) quedó archivado en `/legitimo/`.
-Para reactivarlo: mover `index.html`/`presentacion.html`/`recursos.html`/el video de la raíz a
-una subcarpeta nueva (archivo del taller que sale) y mover los de `/legitimo/` de vuelta a la
+Archivados, cada uno en su subcarpeta: Coparmex (PyMEs) en `/coparmex/` y Legítimo (despacho de abogados) en `/legitimo/`.
+Para reactivar uno: mover `index.html`/`presentacion.html`/`recursos.html`/el video de la raíz a una
+subcarpeta nueva (archivo del taller que sale) y mover los del taller que vuelve de su subcarpeta a la
 raíz. Un commit, sin tags ni reverts.
+
+El cuaderno de BNI (`index.html`) guarda una copia de las respuestas en n8n (tabla `taller_evaluaciones`,
+webhook `/webhook/taller-evaluacion`). Ver «Dónde caen las evaluaciones» en el manual del facilitador.
 
 ## Qué se publica
 
@@ -21,7 +24,8 @@ raíz. Un commit, sin tags ni reverts.
 | `recursos.html` | `.../recursos.html` | Participantes — hoja de recursos |
 | `presentacion.html` | `.../presentacion.html` | Facilitador — los slides |
 | `7 - Video peligros de la IA.mp4` | `.../7 - Video peligros de la IA.mp4` | Video del bloque 1, referenciado por `presentacion.html` |
-| `legitimo/*` | `.../legitimo/*` | El taller anterior, archivado tal cual (incluye su propio video) |
+| `coparmex/*` | `.../coparmex/*` | Taller Coparmex, archivado tal cual (incluye su propio video) |
+| `legitimo/*` | `.../legitimo/*` | Taller Legítimo, archivado tal cual (incluye su propio video) |
 
 El link corto (el dominio pelón) va al cuaderno **a propósito**: es el que se dicta en voz alta y se escribe en el proyector. Entre menos tenga que teclear alguien desde su celular, mejor.
 
